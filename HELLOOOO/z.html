@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Celebration</title>
+    <style>
+        body {
+            background-color: black; /* Initial black screen */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1, h4 {
+            color: #ff4081;
+        }
+        .balloon {
+            width: 50px;
+            height: 70px;
+            background-color: #ff4081;
+            border-radius: 50%;
+            position: absolute;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #ff4081;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #e73570;
+        }
+        #cake, #decorImage {
+            display: none;
+            width: 300px;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        .message {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 24px;
+            color: #d66fa1;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page 1: Welcome Zainab -->
+    <section id="welcome">
+        <h1>✨ Yayy it's your Birthday Zainab! ✨</h1>
+        <h4>I have made something special for you, do you want to see?</h4>
+        <button onclick="showLights()">Yes! Show me</button>
+    </section>
+
+    <!-- Page 2: Turn On the Lights -->
+    <section id="turn-on-lights" style="display: none;">
+        <h1 style="color: #ff4081;">🎆 Turn On the Lights! 🎆</h1>
+        <button onclick="turnOnLights()">Turn Light On</button>
+    </section>
+
+    <!-- Page 3: Balloons -->
+    <section id="balloons" style="display: none;">
+        <h1>🎈 Balloons 🎈</h1>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <script>
+            for (let i = 0; i < 20; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                document.body.appendChild(balloon);
+
+                gsap.fromTo(balloon, 
+                    { x: Math.random() * window.innerWidth, y: window.innerHeight },
+                    { y: -100, duration: Math.random() * 5 + 3, repeat: -1, x: "+=100" }
+                );
+            }
+        </script>
+        <button onclick="nextPage('cut-cake')">Next</button>
+    </section>
+
+    <!-- Page 4: Cut the Cake -->
+    <section id="cut-cake" style="display: none;">
+        <h1>🎂 Time to Cut the Cake! 🎂</h1>
+        <img id="cake" src="https://images.unsplash.com/photo-1608655624472-49349f55d220?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cake">
+        <button onclick="cutCake()">Cut Cake</button>
+        <button id="messageBtn" style="display: none;" onclick="nextPage('message')">Special Message for You</button>
+    </section>
+
+    <!-- Page 5: Decorate -->
+    <section id="decorate" style="display: none;">
+        <h1>🎉 Time to Decorate! 🎉</h1>
+        <img id="decorImage" src="https://flowerbouquet.pk/cdn/shop/files/Screenshot2024-07-04at3.50.05PM.png?v=1720090225&width=533" alt="Decor">
+        <button id="decorButton">Decorate</button>
+        <button id="balloonButton">Balloon</button>
+    </section>
+
+    <!-- Page 6: Happy Birthday Zainab -->
+    <section id="happy-birthday" style="display: none;">
+        <div class="message">
+            <h1>Happy Birthday Zainab!</h1>
+            <p>happy birthday i said some things earlier in anger and i’m really sorry that wasn’t what i meant at all i wasn’t planning to message you but then i thought since it’s your birthday i should i hope you can forgive me</p>
+            <p>i understand that i hurt you a lot, and because of that, i feel really guilty</p>
+        </div>
+    </section>
+
+    <script>
+        function showLights() {
+            // Hide welcome section
+            document.getElementById('welcome').style.display = 'none';
+            
+            // Show "Turn On the Lights" page
+            document.getElementById('turn-on-lights').style.display = 'block';
+        }
+
+        function turnOnLights() {
+            // Change the background color to simulate turning on the light
+            document.body.style.backgroundColor = "#ffe6f2"; // Light pink
+
+            // Delay the transition to the next page
+            setTimeout(() => {
+                // Hide "Turn On the Lights" page and show "Balloons" page
+                document.getElementById('turn-on-lights').style.display = 'none';
+                document.getElementById('balloons').style.display = 'block';
+            }, 1000); // 1 second delay for light transition
+        }
+
+        function nextPage(page) {
+            switch (page) {
+                case 'cut-cake':
+                    document.getElementById('balloons').style.display = 'none';
+                    document.getElementById('cut-cake').style.display = 'block';
+                    break;
+                case 'message':
+                    document.getElementById('cut-cake').style.display = 'none';
+                    document.getElementById('happy-birthday').style.display = 'block';
+                    break;
+            }
+        }
+
+        function cutCake() {
+            document.getElementById('cake').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('messageBtn').style.display = 'inline-block';
+            }, 2000); // Display the "Special Message" button after 2 seconds
+        }
+    </script>
+
+</body>
+</html>
